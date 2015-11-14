@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org/">
+<head>
+<title>Wicket Examples - guestbook</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+	<form wicket:id="recipeForm">
+		Add your comment here:
+		<p>
+			<textarea wicket:id="description">This is a description</textarea>
+		<p>
+			<input type="submit" value="Submit" id="formsubmit" />
+	</form>
+	<p />
+	<span wicket:id="recipes">
+		<p>
+			<span wicket:id="description">DESC</span><br> 
+		</p>
+	</span>
+	<wicket:remove>
+		<p>
+			More todo text here.
+		</p>
+	</wicket:remove>
+</body>
+</html>

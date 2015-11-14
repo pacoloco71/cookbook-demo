@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org/">
+<head>
+<title>My Cookbook</title>
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+<body>
+	<h1>My Cookbook</h1>
+	<div>
+		<input type="button" wicket:id = "addRecipeLink" value="Add Recipe" />
+	</div>
+	<h2>My Recipes</h2>
+	<div wicket:id="recipes">
+		<div>
+			<a wicket:id="viewRecipeLink"><span wicket:id="title"></span></a>
+			<a wicket:id="editRecipeLink" class="action">edit</a><a wicket:id="removeRecipeLink" class="action">delete</a>
+		</div>
+	</div>
+</body>
+</html>

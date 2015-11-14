@@ -1,0 +1,8 @@
+body {font-family:Verdana; font-size:12px;}
+h1 {font-size:16px;}
+h2 {font-size:14px;}
+label {display:block; color:#666; margin-top:5px;}
+input.amount {width:20px;}
+textarea {width:300px;}
+div {margin-bottom:5px;}
+a.action {margin: 0 20px;}
