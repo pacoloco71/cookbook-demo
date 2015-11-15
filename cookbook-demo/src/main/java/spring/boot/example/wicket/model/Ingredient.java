@@ -26,13 +26,14 @@ public class Ingredient implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Unit unit;
 	private String name;
-	@ManyToOne()
+	@ManyToOne(optional = false)
 	private Recipe recipe;
 	
-	public Ingredient(float amount) {
-		this.amount = amount;
+	public Ingredient() {
+		this.amount = 1f;
+		this.unit = Unit.PIECE;
 	}
-
+	
 	public static List<Unit> getUnits() {
 		return Arrays.asList(Unit.values());
 	}
@@ -67,6 +68,14 @@ public class Ingredient implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Recipe getRecipe() {
+		return recipe;
+	}
+
+	public void setRecipe(Recipe recipe) {
+		this.recipe = recipe;
 	}
 
 }

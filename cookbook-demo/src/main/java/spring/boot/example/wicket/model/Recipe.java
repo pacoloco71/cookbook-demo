@@ -1,6 +1,7 @@
 package spring.boot.example.wicket.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -21,8 +22,12 @@ public class Recipe implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="recipe", cascade = CascadeType.ALL)
 	private List<Ingredient> ingredients;
 	private String description;
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Attachment> attachments;
+	
+	public Recipe() {
+		ingredients = new ArrayList<Ingredient>();
+	}
 	
 	public long getId() {
 		return id;

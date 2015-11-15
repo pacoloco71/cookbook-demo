@@ -21,36 +21,44 @@ import spring.boot.example.wicket.services.RecipeService;
 
 public class RecipeForm extends Form<Recipe> {
 
+	private static final int MAX_NO_OF_INGREDIENTS = 10;
+	
 	@SpringBean
 	private RecipeService recipeService;
 
 	public RecipeForm(final String id) {
 		// Construct form with no validation listener
 		super(id, new CompoundPropertyModel<Recipe>(new Recipe()));
-		addComponents();
+		addComponents(null);
 	}
 
 	public RecipeForm(final String id, Recipe recipe) {
 		super(id, new CompoundPropertyModel<Recipe>(recipe));
-		addComponents();
+		addComponents(recipe);
 	}
 	
-	private void addComponents() {
+	private void addComponents(Recipe recipe) {
+		if (recipe == null) {
+			recipe = new Recipe();
+		}
+		List<Ingredient> ingredients = recipe.getIngredients();
+		while (ingredients.size() < MAX_NO_OF_INGREDIENTS) {
+			Ingredient addIngredient = new Ingredient();
+			addIngredient.setRecipe(recipe);
+			ingredients.add(addIngredient);
+		}
 		// this is just to make the unit test happy
 		setMarkupId("recipeForm");
 		add(new TextField<String>("title"));
 		// Add text entry widget
 		add(new TextArea<String>("description"));
-		List<Ingredient> ingredients = new ArrayList<>();
-		for (int i = 0; i < 10; i++) {
-			ingredients.add(new Ingredient(1));
-		}
 		ListView<Ingredient> listView = new ListView<Ingredient>("ingredients", ingredients) {
 
 			@Override
 			protected void populateItem(ListItem<Ingredient> item) {
-				item.add(new TextField<Ingredient>("amount", new PropertyModel<Ingredient>(item.getModel(), "amount")))
-					.add(new DropDownChoice<Ingredient>("unit", new PropertyModel(item.getModel(), "unit"), new LoadableDetachableModel() {
+				Ingredient ingredient = item.getModel().getObject();
+				item.add(new TextField<String>("amount", new PropertyModel<String>(ingredient, "amount")))
+					.add(new DropDownChoice("unit", new PropertyModel(ingredient, "unit"), new LoadableDetachableModel() {
 
 						@Override
 						protected List<Unit> load() {
@@ -58,7 +66,7 @@ public class RecipeForm extends Form<Recipe> {
 						}
 						
 					}))
-					.add(new TextField<Ingredient>("name", new PropertyModel<Ingredient>(item.getModel(), "name")));
+					.add(new TextField("name", new PropertyModel(ingredient, "name")));
 			}
 			
 		};
@@ -72,7 +80,17 @@ public class RecipeForm extends Form<Recipe> {
 	@Override
 	public final void onSubmit() {
 		Recipe recipe = getModelObject();
-		recipeService.saveRecipe(recipe);
+		List<Ingredient> ingredients = new ArrayList<>();
+		for (Ingredient ingredient : recipe.getIngredients()) {
+			if (ingredient.getAmount() != null && ingredient.getAmount() > 0 && ingredient.getUnit() != null
+					&& ingredient.getName() != null && !ingredient.getName().equals("")) {
+				ingredients.add(ingredient);
+			}
+		}
+		recipe.setIngredients(ingredients);
+		if (recipe.getTitle() != null) {
+			recipeService.saveRecipe(recipe);
+		}
 		setResponsePage(new RecipeOverviewPage());
 	}
 }
