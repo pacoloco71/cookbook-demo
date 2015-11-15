@@ -16,14 +16,6 @@ import spring.boot.example.wicket.components.MountedPage;
 import spring.boot.example.wicket.components.RecipeOverviewPage;
 import spring.boot.example.wicket.services.TextService;
 
-/**
- * The web application class also serves as spring boot starting point by using
- * spring boot's EnableAutoConfiguration annotation and providing the main
- * method.
- *
- * @author Stefan Kloe
- *
- */
 @Component
 @EnableAutoConfiguration
 @ComponentScan

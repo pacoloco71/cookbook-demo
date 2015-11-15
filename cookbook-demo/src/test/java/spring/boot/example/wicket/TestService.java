@@ -13,8 +13,6 @@ import org.springframework.stereotype.Component;
  * WicketWebApplication is a spring bean (singleton) therefore only a
  * WicketTester singleton is possible.
  * 
- * @author kloe
- * 
  */
 @Component
 public class TestService implements InitializingBean {
