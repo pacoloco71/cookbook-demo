@@ -1,7 +1,7 @@
 Cookbook Demo (Spring / Wicket / Hibernate)
 ===========================================
 
-This project builds and runs a minimal Cooking Recipe Administration Web application built on Spring, Wicket and Hibernate.
+This project builds and runs a simple Cooking Recipe Administration Web application built on Spring, Wicket and Hibernate.
 
 ##Requirements
 
@@ -12,6 +12,7 @@ This project builds and runs a minimal Cooking Recipe Administration Web applica
 * upload of photos and other media
 * extensive unit tests
 * proper form validation and notifications
+* 100% Clean Code
 * a tremendously good looking GUI ;)
 
 ##Notable classes
