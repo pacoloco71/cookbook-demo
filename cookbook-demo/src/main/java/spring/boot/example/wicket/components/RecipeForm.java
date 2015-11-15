@@ -27,20 +27,17 @@ public class RecipeForm extends Form<Recipe> {
 	private RecipeService recipeService;
 
 	public RecipeForm(final String id) {
-		// Construct form with no validation listener
 		super(id, new CompoundPropertyModel<Recipe>(new Recipe()));
-		addComponents(null);
+		addComponents();
 	}
 
 	public RecipeForm(final String id, Recipe recipe) {
 		super(id, new CompoundPropertyModel<Recipe>(recipe));
-		addComponents(recipe);
+		addComponents();
 	}
 	
-	private void addComponents(Recipe recipe) {
-		if (recipe == null) {
-			recipe = new Recipe();
-		}
+	private void addComponents() {
+		Recipe recipe = getModelObject();
 		List<Ingredient> ingredients = recipe.getIngredients();
 		while (ingredients.size() < MAX_NO_OF_INGREDIENTS) {
 			Ingredient addIngredient = new Ingredient();
@@ -84,6 +81,7 @@ public class RecipeForm extends Form<Recipe> {
 		for (Ingredient ingredient : recipe.getIngredients()) {
 			if (ingredient.getAmount() != null && ingredient.getAmount() > 0 && ingredient.getUnit() != null
 					&& ingredient.getName() != null && !ingredient.getName().equals("")) {
+				//ingredient.setRecipe(recipe);
 				ingredients.add(ingredient);
 			}
 		}
